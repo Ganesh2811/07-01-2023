@@ -1,0 +1,90 @@
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+  crossorigin="anonymous"
+/>
+<script
+  src="https://unpkg.com/react@18/umd/react.development.js"
+  crossorigin
+></script>
+<script
+  src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+  crossorigin
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+  crossorigin="anonymous"
+></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+  function Emi() {
+    var txt1 = React.useRef();
+    var txt2 = React.useRef();
+    var txt3 = React.useRef();
+    var p1 = React.useRef();
+    var p2 = React.useRef();
+
+    function myfunc(){
+        // console.log('test');
+        // console.log(txt1);
+        // console.log(txt2);/
+       // console.log(txt3);
+
+        var P = +txt1.current.value;
+        var Roi = +txt2.current.value;
+        var Duration = +txt3.current.value;
+
+          
+        var R = Roi/12/100;
+        var N = Duration * 12;
+
+        /* console.log(P);
+        console.log(r);
+        console.log(n); */
+        // P x R x (1+R)^N / [(1+R)^N-1]
+
+        // var msg = '';
+        if(P == '' || R == '' || N == ''){
+            console.log('please insert your data');
+            var msg = 'Please insert Your Data';
+
+        p2.current.innerText = msg;
+        }
+        else{
+            var calEmi = Math.round(P*R*(1+R)**N / ((1+R)**N-1));
+            console.log(calEmi);
+
+        p1.current.innerHTML = `
+            EMI is :
+            <b>${calEmi}</b>
+        `;
+        }
+        
+
+    }
+
+
+
+    return (
+      <div className="container">
+        <h1>EMI Calculator</h1>
+        <input type="text" placeholder="enter priciple" class="form-control" ref={txt1}/>
+        <br />
+        <input type="text" placeholder="enter roi" class="form-control" ref={txt2}/>
+        <br />
+        <input type="text" placeholder="year" class="form-control" ref={txt3}/>
+        <br />
+        <button onClick={myfunc}>Cal</button>
+        <br />
+        <p ref={p1}></p>
+        <p ref={p2}></p>
+      </div>
+    );
+  }
+  ReactDOM.render(<Emi />, document.getElementById("root"));
+</script>

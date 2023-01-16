@@ -1,0 +1,65 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>  
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+
+
+<div id="root"></div>
+<script type="text/babel">
+    function Login(){
+        var txt1 = React.useRef();
+        var txt2 = React.useRef();
+        var p1 = React.useRef();
+        var users =[
+            {mail:'abc@mail.com',pass:'abc123'},
+            {mail:'xyz@mail.com',pass:'xyz123'},
+            {mail:'ganesh@mail.com',pass:'ganesh123'}
+        ]
+        function myfunc(){
+            // console.log('test');
+            // console.log(txt1);
+            // console.log(txt2);
+            // console.log(txt1.current.value);
+            // console.log(txt2.current.value);
+            var txtEmail = txt1.current.value;
+            var txtPass = txt2.current.value;
+        
+
+            // console.log(txtEmail);
+            // console.log(txtPass);
+
+            var msg='';
+            if(txtEmail == '' || txtPass ==''){
+                msg = 'email and password is not defined'
+            }
+            else{
+            var ans = users.filter(val => val.mail == txtEmail && val.pass == txtPass);
+            // console.log(ans);
+            if(ans.length > 0){
+                msg = 'success'
+            }
+            else{
+                msg = 'mail and password is invalid';
+             }
+            }
+            p1.current.innerHTML = `<b>${msg}</b>`;
+
+        }
+
+        return(
+            <div className="container">
+    <h1>Login</h1><br />
+    <input type="text" placeholder="enter a login" class="form-control" 
+    ref={txt1}  /><br />
+    <input type="text" placeholder="enter apassword" class="form-control" 
+    ref={txt2} /><br /><br />
+    <button onClick={myfunc}>Login</button>
+    <p ref={p1}></p>
+</div>
+        
+    )
+}
+    ReactDOM.render(<Login />,document.getElementById('root'));
+</script>
+ 
